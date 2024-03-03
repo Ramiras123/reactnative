@@ -5,7 +5,7 @@ import {
 	TextInputProps,
 	View
 } from 'react-native';
-import { Colors, FontSize, Radius } from './tokens';
+import { Colors, FontSize, Radius } from '../tokens';
 import { useState } from 'react';
 import EyeOpenIcon from '../../assets/Icons/eye-open';
 import EyeClosedIcon from '../../assets/Icons/eye-closed';
