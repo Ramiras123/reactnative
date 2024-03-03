@@ -15,12 +15,10 @@ export default function App() {
 				/>
 				<View style={styles.form}>
 					<Input placeholder="Email" />
-					<Input placeholder="Пароль" />
+					<Input isPassword placeholder="Пароль" />
 					<Button title="Войти" />
 				</View>
 				<Button title="Восстановить пароль" />
-				<EyeClosedIcon />
-				<EyeOpenIcon />
 			</View>
 		</View>
 	);
