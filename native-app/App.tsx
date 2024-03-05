@@ -10,6 +10,9 @@ export default function App() {
 	const [error, setError] = useState<string | undefined>(undefined);
 	const onClick = () => {
 		setError('Ошибка');
+		setTimeout(() => {
+			setError(undefined);
+		}, 4000);
 	};
 	return (
 		<View style={styles.container}>

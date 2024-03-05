@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Animated, Dimensions, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Colors, FontSize } from '../tokens';
 
@@ -8,7 +8,15 @@ export interface ErrorNotificationProps {
 
 const ErrorNotification = ({ error }: ErrorNotificationProps) => {
 	const [isShow, setIsShow] = useState<boolean>(false);
+	const animatedValue = new Animated.Value(-100);
 
+	const onClick = () => {
+		Animated.timing(animatedValue, {
+			toValue: 0,
+			useNativeDriver: true,
+			duration: 300
+		}).start();
+	};
 	useEffect(() => {
 		if (!error) {
 			return;
@@ -26,9 +34,19 @@ const ErrorNotification = ({ error }: ErrorNotificationProps) => {
 		return <></>;
 	}
 	return (
-		<View style={styles.error}>
+		<Animated.View
+			style={{
+				...styles.error,
+				transform: [
+					{
+						translateY: animatedValue
+					}
+				]
+			}}
+			onLayout={onClick}
+		>
 			<Text style={styles.text}>{error}</Text>
-		</View>
+		</Animated.View>
 	);
 };
 
