@@ -21,7 +21,7 @@ export default function Button(props: PressableProps & { text: string }) {
 		Animated.timing(animatedValue, {
 			toValue: 0,
 			duration: 300,
-			useNativeDriver: true
+			useNativeDriver: false
 		}).start();
 		props.onPressIn && props.onPressIn(e);
 	};
@@ -29,7 +29,7 @@ export default function Button(props: PressableProps & { text: string }) {
 		Animated.timing(animatedValue, {
 			toValue: 100,
 			duration: 300,
-			useNativeDriver: true
+			useNativeDriver: false
 		}).start();
 		props.onPressOut && props.onPressOut(e);
 	};
