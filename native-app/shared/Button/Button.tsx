@@ -1,5 +1,6 @@
 import {
 	Animated,
+	GestureResponderEvent,
 	Pressable,
 	PressableProps,
 	StyleSheet,
@@ -10,28 +11,34 @@ import React from 'react';
 import { Colors, FontSize, Radius } from '../tokens';
 
 export default function Button(props: PressableProps & { text: string }) {
-	const animatedValue = new Animated.ValueXY({ x: 0, y: 0 });
+	const animatedValue = new Animated.Value(100);
+	const color = animatedValue.interpolate({
+		inputRange: [0, 100],
+		outputRange: [Colors.primaryHover, Colors.primary]
+	});
 
-	const handlerClick = () =>
+	const ClickIn = (e: GestureResponderEvent) => {
 		Animated.timing(animatedValue, {
-			toValue: {
-				x: 50,
-				y: 50
-			},
-			duration: 3000,
+			toValue: 0,
+			duration: 300,
 			useNativeDriver: true
 		}).start();
+		props.onPressIn && props.onPressIn(e);
+	};
+	const ClickOut = (e: GestureResponderEvent) => {
+		Animated.timing(animatedValue, {
+			toValue: 100,
+			duration: 300,
+			useNativeDriver: true
+		}).start();
+		props.onPressOut && props.onPressOut(e);
+	};
 	return (
-		<Pressable {...props} onPress={handlerClick}>
+		<Pressable {...props} onPressIn={ClickIn} onPressOut={ClickOut}>
 			<Animated.View
 				style={{
 					...styles.btn,
-					transform: [
-						{
-							translateX: animatedValue.x
-						},
-						{ translateY: animatedValue.y }
-					]
+					backgroundColor: color
 				}}
 			>
 				<Text style={styles.text}>{props.text}</Text>
