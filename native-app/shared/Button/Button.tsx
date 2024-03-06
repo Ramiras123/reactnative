@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
 	text: {
 		color: Colors.white,
 		fontSize: FontSize.f18,
-		alignSelf: 'center'
+		alignSelf: 'center',
+		fontFamily: 'FiraSansSemiBold'
 	}
 });
