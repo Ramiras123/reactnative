@@ -1,9 +1,9 @@
 import { StyleSheet, Image, View, Text } from 'react-native';
-import { Input } from './shared/Input/Input';
-import { Colors, Gaps } from './shared/tokens';
+import { Input } from '../shared/Input/Input';
+import { Colors, Gaps } from '../shared/tokens';
 
-import Button from './shared/Button/Button';
-import ErrorNotification from './shared/ErrorNotification/ErrorNotification';
+import Button from '../shared/Button/Button';
+import ErrorNotification from '../shared/ErrorNotification/ErrorNotification';
 import { useState } from 'react';
 
 export default function App() {
@@ -19,7 +19,7 @@ export default function App() {
 			<ErrorNotification error={error} />
 			<View style={styles.content}>
 				<Image
-					source={require('./assets/logotype.png')}
+					source={require('../assets/logotype.png')}
 					style={styles.logo}
 					resizeMode="contain"
 				/>
