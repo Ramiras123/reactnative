@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
 		fontSize: FontSize.f16,
 		color: Colors.white,
 		fontStyle: 'normal',
-		textDecorationLine: 'none'
+		textDecorationLine: 'none',
+		fontFamily: 'FiraSansSemiBold'
 	},
 	eye: {
 		position: 'absolute',
