@@ -6,6 +6,7 @@ import Button from '../shared/Button/Button';
 import ErrorNotification from '../shared/ErrorNotification/ErrorNotification';
 import { useState } from 'react';
 import { Link } from 'expo-router';
+import CustomLink from '../shared/CustomLink/CustomLink';
 
 export default function Login() {
 	const [error, setError] = useState<string | undefined>(undefined);
@@ -29,9 +30,7 @@ export default function Login() {
 					<Input isPassword placeholder="Пароль" />
 					<Button text="Вход" onPress={onClick} />
 				</View>
-				<Link href={'/restore'}>
-					<Text>Восстановить пароль</Text>
-				</Link>
+				<CustomLink href={'/restore'} text={'Восстановить пароль'} />
 			</View>
 		</View>
 	);
