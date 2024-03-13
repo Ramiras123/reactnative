@@ -1,17 +1,23 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	DrawerContentComponentProps,
 	DrawerContentScrollView
 } from '@react-navigation/drawer';
 import { Colors } from '../../../../shared/tokens';
 import CustomLink from '../../../../shared/CustomLink/CustomLink';
-import { useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { logoutAtom } from '../../../auth/model/auth.state';
 import { CloseDrawer } from '../../../../features/layout/ui/CloseDrawer/CloseDrawer';
+import { loadProfileAtom } from '../../../user/model/user.state';
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
 	const logout = useSetAtom(logoutAtom);
+	const [profile, loadProfile] = useAtom(loadProfileAtom);
+
+	useEffect(() => {
+		loadProfile();
+	}, []);
 	return (
 		<DrawerContentScrollView
 			{...props}
@@ -20,7 +26,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
 			<View style={styles.content}>
 				<CloseDrawer {...props.navigation} />
 
-				<Text>Drawer</Text>
+				<Text style={{ color: Colors.white }}>{profile.profile?.name}</Text>
 			</View>
 			<View style={styles.footer}>
 				<CustomLink text="Выход" onPress={logout} href={'/'}></CustomLink>
