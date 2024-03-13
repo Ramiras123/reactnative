@@ -9,6 +9,7 @@ export function CloseDrawer(navigation: DrawerNavigationHelpers) {
 				navigation.closeDrawer();
 				console.log('CloseDrawer');
 			}}
+			style={styles.wrapper}
 		>
 			<View style={styles.button}>
 				<CloseIcon />
@@ -20,9 +21,13 @@ export function CloseDrawer(navigation: DrawerNavigationHelpers) {
 const styles = StyleSheet.create({
 	button: {
 		justifyContent: 'center',
-		alignItems: 'center',
+		alignItems: 'center'
+	},
+	wrapper: {
 		position: 'absolute',
-		top: 20,
-		right: 20
+		top: 0,
+		right: 0,
+		zIndex: 100,
+		padding: 20
 	}
 });
