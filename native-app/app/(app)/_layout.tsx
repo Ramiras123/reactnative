@@ -1,12 +1,11 @@
-import { Redirect, SplashScreen, Stack } from 'expo-router';
+import { Redirect, SplashScreen } from 'expo-router';
 import { Drawer } from 'expo-router/drawer';
 import { useAtomValue } from 'jotai';
 import { authAtom } from '../../entities/auth/model/auth.state';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Colors, FontSize } from '../../shared/tokens';
-import MenuIcon from '../../assets/Icons/menu';
-import Button from '../../shared/Button/Button';
 import MenuButton from '../../features/layout/ui/MenuButton/MenuButton';
+import CustomDrawer from '../../entities/layout/ui/CustomDrawer/CustomDrawer';
 
 SplashScreen.preventAutoHideAsync();
 export default function AppLayout() {
@@ -35,6 +34,9 @@ export default function AppLayout() {
 						return <MenuButton navigation={navigation} />;
 					}
 				})}
+				drawerContent={(props) => {
+					return <CustomDrawer {...props} />;
+				}}
 			>
 				<Drawer.Screen
 					name="index"
