@@ -26,11 +26,6 @@ export default function Login() {
 			return;
 		}
 		login({ email: valueEmail, password: valuePassword });
-
-		// setError('Ошибка');
-		// setTimeout(() => {
-		// 	setError(undefined);
-		// }, 4000);
 	};
 
 	useEffect(() => {

@@ -6,7 +6,8 @@ export const Colors = {
 	dark: '#16171D',
 	white: '#FAFAFA',
 	link: '#A97BFF',
-	primaryHover: '#452481'
+	primaryHover: '#452481',
+	grayDark: '#1E1F29'
 };
 
 export const Gaps = {
@@ -20,5 +21,8 @@ export const Radius = {
 
 export const FontSize = {
 	f16: 16,
-	f18: 18
+	f18: 18,
+	f20: 20,
+	regular: 'FiraSans', 
+	bold: 'FiraSansSemiBold'
 };
