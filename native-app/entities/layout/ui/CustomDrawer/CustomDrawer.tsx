@@ -11,6 +11,23 @@ import { logoutAtom } from '../../../auth/model/auth.state';
 import { CloseDrawer } from '../../../../features/layout/ui/CloseDrawer/CloseDrawer';
 import { loadProfileAtom } from '../../../user/model/user.state';
 import UserMenu from '../../../user/ui/UserMenu/UserMenu';
+import MenuItem from '../MenuItem/MenuItem';
+import CoursesIcon from '../../../../assets/menu/courses';
+import UserIcon from '../../../../assets/menu/user';
+
+const MENU = [
+	{
+		text: 'Профиль',
+		icon: <UserIcon />,
+		path: 'profile'
+	},
+
+	{
+		text: 'Курсы',
+		icon: <CoursesIcon />,
+		path: 'index'
+	}
+];
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
 	const logout = useSetAtom(logoutAtom);
@@ -28,6 +45,9 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
 				<CloseDrawer {...props.navigation} />
 
 				<UserMenu user={profile.profile} />
+				{MENU.map((menu) => (
+					<MenuItem {...menu} key={menu.path} drawer={props} />
+				))}
 			</View>
 			<View style={styles.footer}>
 				<CustomLink text="Выход" onPress={logout} href={'/'}></CustomLink>
