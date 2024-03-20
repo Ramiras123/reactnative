@@ -5,7 +5,7 @@ import { authAtom } from '../../entities/auth/model/auth.state';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Colors, FontSize } from '../../shared/tokens';
 import MenuButton from '../../features/layout/ui/MenuButton/MenuButton';
-import CustomDrawer from '../../entities/layout/ui/CustomDrawer/CustomDrawer';
+import CustomDrawer from '../../widget/layout/ui/CustomDrawer/CustomDrawer';
 
 SplashScreen.preventAutoHideAsync();
 export default function AppLayout() {
