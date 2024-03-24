@@ -17,7 +17,7 @@ export default CustomLink;
 const styles = StyleSheet.create({
 	link: {
 		color: Colors.link,
-		fontFamily: 'FiraSans',
+		fontFamily: FontSize.regular,
 		fontSize: FontSize.f18
 	}
 });

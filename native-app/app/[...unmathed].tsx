@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
 		fontSize: FontSize.f18,
 		textAlign: 'center',
 		color: Colors.white,
-		fontFamily: 'FiraSans'
+		fontFamily: FontSize.regular
 	}
 });
