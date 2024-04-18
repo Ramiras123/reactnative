@@ -6,10 +6,22 @@ import Avatar from '../../entities/user/ui/Avatar/Avatar';
 import { updateProfileAtom } from '../../entities/user/model/user.state';
 import Button from '../../shared/Button/Button';
 import { useAtom } from 'jotai';
+import * as Sharing from 'expo-sharing';
 
 const Profile = () => {
 	const [image, setImage] = useState<string | null>(null);
 	const [profile, updateProfile] = useAtom(updateProfileAtom);
+
+	const shareProfile = async () => {
+		const isSharingAvailable = await Sharing.isAvailableAsync();
+		if (!isSharingAvailable) {
+			return;
+		}
+		await Sharing.shareAsync('https://google.com', {
+			dialogTitle: 'Поделиться профилем'
+		});
+	};
+
 	const submitProfile = () => {
 		if (!image) {
 			return;
@@ -31,6 +43,7 @@ const Profile = () => {
 				<ImageUploader onUpload={setImage} onError={(e) => console.log(e)} />
 			</View>
 			<Button text="Сохранить" onPress={submitProfile} />
+			<Button text="Поделиться" onPress={shareProfile} />
 		</View>
 	);
 };
