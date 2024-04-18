@@ -35,6 +35,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
 
 	useEffect(() => {
 		loadProfile();
+		console.log(profile.profile);
 	}, []);
 	return (
 		<DrawerContentScrollView
