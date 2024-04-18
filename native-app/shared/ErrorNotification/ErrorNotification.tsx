@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
 		color: Colors.white,
 		textAlign: 'center',
 		flexWrap: 'nowrap',
-		fontFamily: 'FiraSans'
+		fontFamily: FontSize.regular
 	}
 });

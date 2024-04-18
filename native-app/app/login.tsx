@@ -4,18 +4,41 @@ import { Colors, Gaps } from '../shared/tokens';
 
 import Button from '../shared/Button/Button';
 import ErrorNotification from '../shared/ErrorNotification/ErrorNotification';
-import { useState } from 'react';
-import { Link } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { Link, router } from 'expo-router';
 import CustomLink from '../shared/CustomLink/CustomLink';
+import { useAtom } from 'jotai';
+import { loginAtom } from '../entities/auth/model/auth.state';
 
 export default function Login() {
+	const [valueEmail, setEmail] = useState<string>();
+	const [valuePassword, setPassword] = useState<string>();
+	const [auth, login] = useAtom(loginAtom);
 	const [error, setError] = useState<string | undefined>(undefined);
-	const onClick = () => {
-		setError('Ошибка');
-		setTimeout(() => {
-			setError(undefined);
-		}, 4000);
+
+	const submit = () => {
+		if (!valueEmail) {
+			setError('Не указана почта');
+			return;
+		}
+		if (!valuePassword) {
+			setError('Не указан пароль');
+			return;
+		}
+		login({ email: valueEmail, password: valuePassword });
 	};
+
+	useEffect(() => {
+		if (auth.error) {
+			setError(auth.error);
+		}
+	}, [auth.error]);
+
+	useEffect(() => {
+		if (auth.access_token) {
+			router.replace('/');
+		}
+	}, [auth.access_token]);
 	return (
 		<View style={styles.container}>
 			<ErrorNotification error={error} />
@@ -26,9 +49,9 @@ export default function Login() {
 					resizeMode="contain"
 				/>
 				<View style={styles.form}>
-					<Input placeholder="Email" />
-					<Input isPassword placeholder="Пароль" />
-					<Button text="Вход" onPress={onClick} />
+					<Input placeholder="Email" onChangeText={setEmail} />
+					<Input isPassword placeholder="Пароль" onChangeText={setPassword} />
+					<Button text="Вход" onPress={submit} isLoading={auth.isLoading} />
 				</View>
 				<CustomLink href={'/restore'} text={'Восстановить пароль'} />
 			</View>

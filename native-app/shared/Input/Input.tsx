@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 		color: Colors.white,
 		fontStyle: 'normal',
 		textDecorationLine: 'none',
-		fontFamily: 'FiraSansSemiBold'
+		fontFamily: FontSize.bold
 	},
 	eye: {
 		position: 'absolute',

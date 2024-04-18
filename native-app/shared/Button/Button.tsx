@@ -1,4 +1,5 @@
 import {
+	ActivityIndicator,
 	Animated,
 	GestureResponderEvent,
 	Pressable,
@@ -10,7 +11,9 @@ import {
 import React from 'react';
 import { Colors, FontSize, Radius } from '../tokens';
 
-export default function Button(props: PressableProps & { text: string }) {
+export default function Button(
+	props: PressableProps & { text: string; isLoading?: boolean }
+) {
 	const animatedValue = new Animated.Value(100);
 	const color = animatedValue.interpolate({
 		inputRange: [0, 100],
@@ -41,7 +44,10 @@ export default function Button(props: PressableProps & { text: string }) {
 					backgroundColor: color
 				}}
 			>
-				<Text style={styles.text}>{props.text}</Text>
+				{!props.isLoading && <Text style={styles.text}>{props.text}</Text>}
+				{props.isLoading && (
+					<ActivityIndicator size="large" color={Colors.white} />
+				)}
 			</Animated.View>
 		</Pressable>
 	);
@@ -58,6 +64,6 @@ const styles = StyleSheet.create({
 		color: Colors.white,
 		fontSize: FontSize.f18,
 		alignSelf: 'center',
-		fontFamily: 'FiraSans'
+		fontFamily: FontSize.regular
 	}
 });
