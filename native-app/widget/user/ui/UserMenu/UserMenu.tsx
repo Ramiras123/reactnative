@@ -1,7 +1,8 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { User } from '../../model/user.model';
+import { User } from '../../../../entities/user/model/user.model';
 import { Colors, FontSize, Gaps } from '../../../../shared/tokens';
+import Avatar from '../../../../entities/user/ui/Avatar/Avatar';
 
 const UserMenu = ({ user }: { user: User | null }) => {
 	if (!user) {
@@ -9,14 +10,7 @@ const UserMenu = ({ user }: { user: User | null }) => {
 	}
 	return (
 		<View style={styles.container}>
-			{user.photo ? (
-				<Image style={styles.image} source={{ uri: user.photo }} />
-			) : (
-				<Image
-					style={styles.image}
-					source={require('../../../../assets/avatar-none.png')}
-				/>
-			)}
+			<Avatar image={user.photo ?? null} />
 			<Text style={styles.name}>
 				{user.name} {user.surname}
 			</Text>
@@ -33,11 +27,6 @@ const styles = StyleSheet.create({
 		marginTop: 30,
 		marginBottom: 40,
 		zIndex: 1
-	},
-	image: {
-		width: 70,
-		height: 70,
-		borderRadius: 35
 	},
 	name: {
 		fontSize: FontSize.f16,

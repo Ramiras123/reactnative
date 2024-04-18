@@ -15,11 +15,31 @@ import { UploadInterface } from './ImageUploader.interface';
 
 interface ImageUploaderProps {
 	onUpload: (uri: string) => void;
+	onError: (error: string) => void;
 }
 
-const ImageUploader = ({ onUpload }: ImageUploaderProps) => {
+const ImageUploader = ({ onUpload, onError }: ImageUploaderProps) => {
 	const [libraryPermissions, setLibraryPermissions] =
 		useMediaLibraryPermissions();
+
+	const upload = async () => {
+		const isVerified = await verificationLibraryPermissions();
+		if (!isVerified) {
+			onError('Недостаточно прав');
+			return;
+		}
+		const asset = await pickImage();
+		if (!asset) {
+			onError('Нет выбранного изображения');
+			return;
+		}
+		const uploadUrl = await uploadToServer(asset.uri, asset.fileName ?? '');
+		if (!uploadUrl) {
+			onError('Не удалось загрузить изображение');
+			return;
+		}
+		onUpload(uploadUrl);
+	};
 
 	const verificationLibraryPermissions = async () => {
 		if (libraryPermissions?.status === PermissionStatus.UNDETERMINED) {
@@ -33,10 +53,6 @@ const ImageUploader = ({ onUpload }: ImageUploaderProps) => {
 	};
 
 	const pickImage = async () => {
-		const isVerified = await verificationLibraryPermissions();
-		if (!isVerified) {
-			return;
-		}
 		const result = await launchImageLibraryAsync({
 			mediaTypes: MediaTypeOptions.Images,
 			allowsEditing: true,
@@ -44,15 +60,15 @@ const ImageUploader = ({ onUpload }: ImageUploaderProps) => {
 			quality: 0.5
 		});
 		if (!result.assets) {
-			return;
+			return null;
 		}
-		await uploadToServer(result.assets[0].uri, result.assets[0].fileName ?? '');
+		return result.assets[0];
 	};
 
 	const uploadToServer = async (
 		uri: string,
 		name: string
-	): Promise<null | any> => {
+	): Promise<null | string> => {
 		const formData = new FormData();
 		formData.append('files', {
 			uri,
@@ -69,16 +85,17 @@ const ImageUploader = ({ onUpload }: ImageUploaderProps) => {
 					}
 				}
 			);
-			onUpload(data.urls.original);
+			return data.urls.original;
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				console.log(error);
 			}
+			return null;
 		}
 	};
 
 	return (
-		<Pressable onPress={pickImage}>
+		<Pressable onPress={upload}>
 			<View style={styles.container}>
 				<UploaderIcon />
 				<Text style={styles.text}>Загрузить изображение</Text>

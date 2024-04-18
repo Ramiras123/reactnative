@@ -10,7 +10,7 @@ import { useAtom, useSetAtom } from 'jotai';
 import { logoutAtom } from '../../../../entities/auth/model/auth.state';
 import { CloseDrawer } from '../../../../features/layout/ui/CloseDrawer/CloseDrawer';
 import { loadProfileAtom } from '../../../../entities/user/model/user.state';
-import UserMenu from '../../../../entities/user/ui/UserMenu/UserMenu';
+import UserMenu from '../../../user/ui/UserMenu/UserMenu';
 import MenuItem from '../../../../entities/layout/ui/MenuItem/MenuItem';
 import CoursesIcon from '../../../../assets/menu/courses';
 import UserIcon from '../../../../assets/menu/user';
