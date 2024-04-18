@@ -8,6 +8,10 @@ import {
 } from 'expo-image-picker';
 import UploaderIcon from '../../assets/Icons/uploader';
 import { Colors, FontSize, Gaps, Radius } from '../tokens';
+import FormData from 'form-data';
+import axios, { AxiosError } from 'axios';
+import { FILE_API } from '../api';
+import { UploadInterface } from './ImageUploader.interface';
 
 interface ImageUploaderProps {
 	onUpload: (uri: string) => void;
@@ -42,7 +46,35 @@ const ImageUploader = ({ onUpload }: ImageUploaderProps) => {
 		if (!result.assets) {
 			return;
 		}
-		onUpload(result.assets[0].uri);
+		await uploadToServer(result.assets[0].uri, result.assets[0].fileName ?? '');
+	};
+
+	const uploadToServer = async (
+		uri: string,
+		name: string
+	): Promise<null | any> => {
+		const formData = new FormData();
+		formData.append('files', {
+			uri,
+			name,
+			type: 'image/jpeg'
+		});
+		try {
+			const { data } = await axios.post<UploadInterface>(
+				FILE_API.uploadImage,
+				formData,
+				{
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
+				}
+			);
+			onUpload(data.urls.original);
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				console.log(error);
+			}
+		}
 	};
 
 	return (
