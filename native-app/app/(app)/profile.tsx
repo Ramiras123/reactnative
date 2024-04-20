@@ -8,6 +8,7 @@ import Button from '../../shared/Button/Button';
 import { useAtom } from 'jotai';
 import * as Sharing from 'expo-sharing';
 
+
 const Profile = () => {
 	const [image, setImage] = useState<string | null>(null);
 	const [profile, updateProfile] = useAtom(updateProfileAtom);

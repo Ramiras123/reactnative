@@ -3,7 +3,6 @@
 		"name": "native-app",
 		"slug": "native-app",
 		"version": "1.0.0",
-		"orientation": "portrait",
 		"icon": "./assets/icon.png",
 		"backgroundColor": "#16171D",
 		"userInterfaceStyle": "light",
@@ -14,7 +13,8 @@
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
-			"supportsTablet": true
+			"supportsTablet": true,
+			"requireFullScreen": true
 		},
 		"android": {
 			"adaptiveIcon": {
@@ -27,6 +27,7 @@
 		},
 		"plugins": [
 			"expo-router",
+
 			[
 				"expo-font",
 				{
