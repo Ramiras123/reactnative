@@ -1,13 +1,17 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Linking, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { StudentCourseDescription } from '../../model/course.model';
 import Chip from '../../../../shared/Chip/Chip';
 import Button from '../../../../shared/Button/Button';
 import { Colors, FontSize, Gaps, Radius } from '../../../../shared/tokens';
+import MaskedView from '@react-native-masked-view/masked-view';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const CourseCard = ({
 	image,
 	shortTitle,
+	alias,
+	tariffs,
 	courseOnDirection
 }: StudentCourseDescription) => {
 	return (
@@ -25,9 +29,31 @@ const CourseCard = ({
 					{courseOnDirection.length > 0 &&
 						courseOnDirection.map((c) => <Chip text={c.direction.name} />)}
 				</View>
+				<MaskedView
+					maskElement={
+						<Text style={styles.tariff}>
+							Тариф &laquo;{tariffs[0].name}&raquo;
+						</Text>
+					}
+				>
+					<LinearGradient
+						colors={['#D77BE5', '#6C38CC']}
+						start={{ x: 0, y: 0 }}
+						end={{ x: 1, y: 0 }}
+					>
+						<Text style={{ ...styles.tariff, ...styles.tariffWithOpacity }}>
+							Тариф &laquo;{tariffs[0].name}&raquo;
+						</Text>
+					</LinearGradient>
+				</MaskedView>
 			</View>
 			<View style={styles.footer}>
-				<Button text="Купить" />
+				<Button
+					text="Купить"
+					onPress={() =>
+						Linking.openURL(`https://google.com/search?q=${alias}`)
+					}
+				/>
 			</View>
 		</View>
 	);
@@ -40,6 +66,14 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		borderRadius: Radius.r10,
 		backgroundColor: Colors.grayDark
+	},
+	tariff: {
+		marginTop: 10,
+		fontSize: FontSize.f16,
+		fontFamily: FontSize.regular
+	},
+	tariffWithOpacity: {
+		opacity: 0
 	},
 	image: {
 		borderRadius: Radius.r10,
