@@ -8,7 +8,8 @@ export const Colors = {
 	link: '#A97BFF',
 	primaryHover: '#452481',
 	grayDark: '#1E1F29',
-	border: '#4D5064'
+	border: '#4D5064',
+	pink: '#E47AD5'
 };
 
 export const Gaps = {
@@ -25,6 +26,7 @@ export const Radius = {
 };
 
 export const FontSize = {
+	f12: 12,
 	f14: 14,
 	f16: 16,
 	f18: 18,

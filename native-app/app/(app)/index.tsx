@@ -12,7 +12,7 @@ import {
 	courseAtom,
 	loadCourseAtom
 } from '../../entities/course/model/course.state';
-import CourseCard from '../../entities/course/ui/CourseCard/CourseCard';
+import CourseCard from '../../widget/course/ui/CourseCard/CourseCard';
 import { Colors } from '../../shared/tokens';
 const RootIndex = () => {
 	const { isLoading, error, courses } = useAtomValue(courseAtom);
