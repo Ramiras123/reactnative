@@ -14,6 +14,9 @@ import {
 } from '../../entities/course/model/course.state';
 import CourseCard from '../../widget/course/ui/CourseCard/CourseCard';
 import { Colors } from '../../shared/tokens';
+import Button from '../../shared/Button/Button';
+import * as Notifications from 'expo-notifications';
+
 const RootIndex = () => {
 	const { isLoading, error, courses } = useAtomValue(courseAtom);
 	const loadCourses = useSetAtom(loadCourseAtom);
@@ -27,6 +30,41 @@ const RootIndex = () => {
 	useEffect(() => {
 		loadCourses();
 	}, []);
+
+	const allowsNotifications = async () => {
+		const settings = await Notifications.getPermissionsAsync();
+		return (
+			settings.granted ||
+			settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
+		);
+	};
+
+	const requestPermissions = async () => {
+		return Notifications.requestPermissionsAsync({
+			ios: {
+				allowAlert: true,
+				allowBadge: true,
+				allowSound: true
+			}
+		});
+	};
+	const scheduleNotification = async () => {
+		const granted = await allowsNotifications();
+		if (!granted) {
+			await requestPermissions();
+		}
+		Notifications.scheduleNotificationAsync({
+			content: {
+				title: 'Пройди курс',
+				body: 'babab',
+				data: { success: true }
+			},
+			trigger: {
+				seconds: 5
+			}
+		});
+	};
+
 	return (
 		// <ScrollView>
 		// 	<View style={styles.wrapper}>
@@ -42,6 +80,7 @@ const RootIndex = () => {
 					color={Colors.primary}
 				/>
 			)}
+			<Button text="Напомнить" onPress={scheduleNotification} />
 			{courses.length > 0 && (
 				<FlatList
 					refreshControl={

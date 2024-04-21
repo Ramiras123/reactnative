@@ -6,7 +6,15 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Colors, FontSize } from '../../shared/tokens';
 import MenuButton from '../../features/layout/ui/MenuButton/MenuButton';
 import CustomDrawer from '../../widget/layout/ui/CustomDrawer/CustomDrawer';
+import * as Notifications from 'expo-notifications';
 
+Notifications.setNotificationHandler({
+	handleNotification: async () => ({
+		shouldPlaySound: true,
+		shouldSetBadge: true,
+		shouldShowAlert: true
+	})
+});
 SplashScreen.preventAutoHideAsync();
 export default function AppLayout() {
 	const { access_token } = useAtomValue(authAtom);
