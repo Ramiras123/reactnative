@@ -16,6 +16,8 @@ import CourseCard from '../../widget/course/ui/CourseCard/CourseCard';
 import { Colors } from '../../shared/tokens';
 import Button from '../../shared/Button/Button';
 import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
+import Constants from 'expo-constants';
 
 const RootIndex = () => {
 	const { isLoading, error, courses } = useAtomValue(courseAtom);
@@ -53,11 +55,16 @@ const RootIndex = () => {
 		if (!granted) {
 			await requestPermissions();
 		}
+		if (Device.isDevice) {
+			const token = await Notifications.getExpoPushTokenAsync({
+				projectId: Constants.expoConfig?.extra?.eas.projectId
+			});
+		}
 		Notifications.scheduleNotificationAsync({
 			content: {
-				title: 'Пройди курс',
+				title: 'Typescript',
 				body: 'babab',
-				data: { success: true }
+				data: { alias: 'typescript' }
 			},
 			trigger: {
 				seconds: 5
